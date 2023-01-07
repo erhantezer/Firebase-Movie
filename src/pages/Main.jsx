@@ -66,15 +66,16 @@ const getMovies = async(API) => {
               Search
             </Button>
           </Box>
-          <Grid>
+          <div className="d-flex justify-content-center flex-wrap">
               {loading ? (
                 <div className="spinner-border text-primary m-5" role="status">
                   <span className="sr-only">Loading...</span>
                 </div>
               ) : (
+              
                 movies?.map((movie) => <MovieCard key={movie.id} {...movie} />)
               )}
-          </Grid>
+          </div>
       </>
   );
 };
