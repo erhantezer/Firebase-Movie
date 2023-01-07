@@ -90,7 +90,7 @@ export const userObserver = (setCurrentUser) => {
 //! LOGOUT
 export const logOut = (navigate) => {
     signOut(auth)
-    navigate("/login")
+    navigate("/")
 }
 
 

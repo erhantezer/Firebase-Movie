@@ -1,9 +1,41 @@
-import { Box, Button, TextField } from "@mui/material";
-import React from "react";
+import { Box, Button, Container, Grid, TextField } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
+import axios from "axios"
+import { AuthContext } from "../context/AuthContext";
 // import MovieCard from "../components/MovieCard";
 
+const API_KEY = "a9a90e58da935e5528540782b69aa0cf"
+const FEATURED_API = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
+const SEARCH_API = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
+
 const Main = () => {
+  const [movies, setMovies] = useState([])
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const {currentUser} = useContext(AuthContext);
+
+useEffect(() => {
+  getMovies(FEATURED_API)
+}, [])
+
+
+const getMovies = async(API) => {
+  setLoading(true);
+
+  try {
+    const {data} =await axios.get(API)
+    setMovies(data.results)
+    console.log(data.results)
+  } catch (error) {
+    console.log(error);
+  } finally{
+  setLoading(false)
+  }
+}
+
+
   return (
       <>
         <Box 
@@ -23,7 +55,7 @@ const Main = () => {
               name="text"
               autoComplete="text"
               autoFocus
-              // onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           
             <Button
@@ -34,7 +66,15 @@ const Main = () => {
               Search
             </Button>
           </Box>
-          <MovieCard/>
+          <Grid>
+              {loading ? (
+                <div className="spinner-border text-primary m-5" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) : (
+                movies?.map((movie) => <MovieCard key={movie.id} {...movie} />)
+              )}
+          </Grid>
       </>
   );
 };
