@@ -1,5 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import React from "react";
+import MovieCard from "../components/MovieCard";
 // import MovieCard from "../components/MovieCard";
 
 const Main = () => {
@@ -33,6 +34,7 @@ const Main = () => {
               Search
             </Button>
           </Box>
+          <MovieCard/>
       </>
   );
 };

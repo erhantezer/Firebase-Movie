@@ -109,15 +109,17 @@ export const forgotPassword = (email) => {
 //! Projeyi deploy ettikten sonra google sign-in çalışması için domain listesine deploy linkini ekle
 //* => Authentication => sign-in-method => Authorized domains => add domain
 export const signUpProvider = (navigate) => {
-    //* Google ile giriş yapılması için kullanılan firebase metodu
-    const provider =new GoogleAuthProvider();
-    //* Açılır pencere ile giriş yapılması için kullanılan firebase metodu
+    //? Google ile giriş yapılması için kullanılan firebase metodu
+    const provider = new GoogleAuthProvider();
+    //? Açılır pencere ile giriş yapılması için kullanılan firebase metodu
     signInWithPopup(auth, provider)
-    .then((result) => {
+      .then((result) => {
         console.log(result);
-        navigate("/")
-    }).catch((error) => {
-        console.log(error)
-    
-    });
-}
+        navigate('/');
+        
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        console.log(error);
+      });
+  };

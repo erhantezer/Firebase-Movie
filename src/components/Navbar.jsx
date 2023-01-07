@@ -45,7 +45,7 @@ function Navbar(props) {
           <ListItemButton sx={{ textAlign: 'center'}}>
             {currentUser ? (
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText onClick={() => logOut()} primary="Logout" />
+              <ListItemText onClick={() => logOut(navigate)} primary="Logout" />
             </ListItemButton>
             ):
             (<>
