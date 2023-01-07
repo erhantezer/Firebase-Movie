@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { signIn } from '../auth/firebase';
+import { signIn,forgotPassword, signUpProvider } from '../auth/firebase';
 import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
@@ -40,6 +40,10 @@ export default function Login() {
     event.preventDefault();
     signIn(email, password, navigate)
   };
+
+  const handleProviderLogin = (navigate) => {
+    signUpProvider(navigate)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -94,14 +98,23 @@ export default function Login() {
             >
               Sign In
             </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 1, mb: 2 }}
+              onClick={handleProviderLogin}
+            >
+              Continue with Google
+            </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href='#' onClick={() => forgotPassword(email)} variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

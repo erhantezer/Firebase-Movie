@@ -1,5 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged } from "firebase/auth";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    updateProfile, 
+    signOut, 
+    onAuthStateChanged, 
+    sendPasswordResetEmail, 
+    signInWithPopup, 
+    GoogleAuthProvider 
+} from "firebase/auth";
 
 //! GET
 const firebaseConfig = {
@@ -65,8 +75,8 @@ export const signIn = async (email, password, navigate) => {
 //! Sign up oldum ve kayıtlarım database eklendi burada user kaydım varsa bunu
 //! currentUser a aktarıp diğer yerlerde kullanmamı sağlayacak 
 export const userObserver = (setCurrentUser) => {
-  //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni 
-  //? kullanıcıyı response olarak dönen firebase metodu
+    //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni 
+    //? kullanıcıyı response olarak dönen firebase metodu
     onAuthStateChanged(auth, (user) => {
         if (user) {
             setCurrentUser(user)
@@ -81,4 +91,33 @@ export const userObserver = (setCurrentUser) => {
 export const logOut = (navigate) => {
     signOut(auth)
     navigate("/login")
+}
+
+
+//! PASSWORD Unutulunca reset için
+export const forgotPassword = (email) => {
+    sendPasswordResetEmail(auth, email)
+        .then(() => {
+            alert("Please check your mail box!")
+        })
+        .catch((error) => {
+            alert(error.message)
+        });
+}
+
+//! Google ile girişi enable yap
+//! Projeyi deploy ettikten sonra google sign-in çalışması için domain listesine deploy linkini ekle
+//* => Authentication => sign-in-method => Authorized domains => add domain
+export const signUpProvider = (navigate) => {
+    //* Google ile giriş yapılması için kullanılan firebase metodu
+    const provider =new GoogleAuthProvider();
+    //* Açılır pencere ile giriş yapılması için kullanılan firebase metodu
+    signInWithPopup(auth, provider)
+    .then((result) => {
+        console.log(result);
+        navigate("/")
+    }).catch((error) => {
+        console.log(error)
+    
+    });
 }
