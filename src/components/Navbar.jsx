@@ -106,9 +106,21 @@ function Navbar(props) {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {currentUser ? (
+            <>
+            <Box sx={{flexGrow: 1}}>
+            <Typography variant='h6' sx={{ 
+                display:"inline-block",
+                mr:5,
+                textAlign:"center" }}
+            >
+              {currentUser.displayName}
+            </Typography>
               <Button onClick={() => logOut(navigate)} sx={{ color: '#fff' }}>
                 Logout
               </Button>
+              </Box>
+            </>
+              
 
             ) : (
               <>
