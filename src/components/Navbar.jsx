@@ -97,7 +97,8 @@ function Navbar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-          <Button  sx={{ color: '#fff',fontSize:"2rem" }} onClick={() => navigate("/")}>
+          
+            <Button  sx={{ color: '#fff',fontSize:"2rem" }} onClick={() => currentUser && navigate("/")}>
             MUI
           </Button>
             {/* <Link to={"/"}>
