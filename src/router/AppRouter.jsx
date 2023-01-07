@@ -10,14 +10,14 @@ import Register from "../pages/Register";
 
 const AppRouter = () => {
   //* 3) consume (tüketme)
-  const {currentuser} = useContext(AuthContext)
+  const {currentUser} = useContext(AuthContext)
 
   const PrivateRouter = () => {
     return (
-        currentuser ? <Outlet/> : <Navigate to={"/login"} replace/>
+        currentUser ? <Outlet/> : <Navigate to={"/login"} replace/>
       )
   }
-  
+  console.log(currentUser)
   return (
     
     <BrowserRouter>

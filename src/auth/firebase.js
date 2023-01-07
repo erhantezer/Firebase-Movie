@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged } from "firebase/auth";
 
 //! GET
 const firebaseConfig = {
@@ -60,4 +60,25 @@ export const signIn = async (email, password, navigate) => {
         console.log(error)
     }
 
+}
+
+//! Sign up oldum ve kayıtlarım database eklendi burada user kaydım varsa bunu
+//! currentUser a aktarıp diğer yerlerde kullanmamı sağlayacak 
+export const userObserver = (setCurrentUser) => {
+  //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni 
+  //? kullanıcıyı response olarak dönen firebase metodu
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setCurrentUser(user)
+        } else {
+            setCurrentUser(false)
+        }
+    })
+}
+
+
+//! LOGOUT
+export const logOut = (navigate) => {
+    signOut(auth)
+    navigate("/login")
 }

@@ -1,4 +1,5 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
+import { userObserver } from "../auth/firebase";
 
 // 1) create
 export const AuthContext = createContext()
@@ -10,9 +11,13 @@ const AuthContextProvider = ({children}) => {
   //! değerleri firebase backendinden çekeceğiz firebase olmasaydı local veya session storage çekerdik
   const [currentUser, setCurrentUser] = useState(false)
 
+  useEffect(() => {
+    userObserver(setCurrentUser)
+  }, []);
+
   // 2) provider
   return (
-    <AuthContext.Provider value={currentUser}>
+    <AuthContext.Provider value={{currentUser}}>
       {children}
     </AuthContext.Provider>
   )

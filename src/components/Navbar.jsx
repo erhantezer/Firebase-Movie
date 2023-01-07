@@ -14,14 +14,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { logOut } from '../auth/firebase';
 
 const drawerWidth = 240;
-const navItems = ['Login', 'Register',];
+
 
 function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const navigate = useNavigate()
+
+  const { currentUser } = React.useContext(AuthContext)
+ console.log(currentUser)
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -33,13 +40,38 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        
+          <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: 'center'}}>
+            {currentUser ? (
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              <ListItemText onClick={() => logOut()} primary="Logout" />
             </ListItemButton>
+            ):
+            (<>
+              <ListItemButton sx={{ textAlign: 'center'}}>
+              <ListItemText sx={{
+              // mt:"5",
+              bgcolor:"#fff",
+              // padding:"0.5rem",
+              borderRadius:"1rem",
+              }} onClick={() => navigate("/login")} primary="Login" />
+              </ListItemButton>
+
+              <ListItemButton sx={{ textAlign: 'center'}}>
+              <ListItemText sx={{
+              // marginTop:"2rem",
+              bgcolor:"#fff",
+              borderRadius:"1rem",
+              // padding:"0.5rem"
+              }} onClick={() => navigate("/register")} primary="Register" />
+              </ListItemButton>
+            </>
+            )}
+            </ListItemButton>
+            
           </ListItem>
-        ))}
+        
       </List>
     </Box>
   );
@@ -65,14 +97,32 @@ function Navbar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
+          <Button  sx={{ color: '#fff',fontSize:"2rem" }} onClick={() => navigate("/")}>
             MUI
+          </Button>
+            {/* <Link to={"/"}>
+              MUI
+            </Link> */}
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
+            {currentUser ? (
+              <Button onClick={() => logOut(navigate)} sx={{ color: '#fff' }}>
+                Logout
               </Button>
-            ))}
+
+            ) : (
+              <>
+                <Button onClick={() => navigate("/login")} sx={{ color: '#fff' }}>
+                  Login
+                </Button>
+                <Button onClick={() => navigate("/register")} sx={{ color: '#fff' }}>
+                  Register
+                </Button>
+              </>
+            )
+
+            }
+
           </Box>
         </Toolbar>
       </AppBar>
@@ -93,7 +143,7 @@ function Navbar(props) {
           {drawer}
         </Drawer>
       </Box>
-      
+
     </Box>
   );
 }
