@@ -1,9 +1,21 @@
-import React from 'react'
+import { createContext, useState } from "react"
 
-const AuthContext = () => {
+// 1) create
+export const AuthContext = createContext()
+
+const AuthContextProvider = ({children}) => {
+
+  //! registerda oluşturduğumuz kullanıcıyı heryerde kontrol amaçlı kullanmak için
+  //! global state olarak tanımlayıp kullanacağız firebase kullandığımız için burada
+  //! değerleri firebase backendinden çekeceğiz firebase olmasaydı local veya session storage çekerdik
+  const [currentUser, setCurrentUser] = useState()
+
+  // 2) provider
   return (
-    <div>AuthContext</div>
+    <AuthContext.Provider value={null}>
+      {children}
+    </AuthContext.Provider>
   )
 }
 
-export default AuthContext
+export default AuthContextProvider
