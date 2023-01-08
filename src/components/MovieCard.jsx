@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { Button } from '@mui/material';
+import { toastWarnNotify } from '../helpers/toastify';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
@@ -87,7 +88,7 @@ export default function MovieCard({poster_path, title, overview, vote_average, i
         alt="Paella dish"
         onClick={() => {
           navigate(`/details/${id}`);
-          !currentUser && alert('Please log in to see detail');
+          !currentUser && toastWarnNotify('Please log in to see detail');
         }}
       />
       </Button>

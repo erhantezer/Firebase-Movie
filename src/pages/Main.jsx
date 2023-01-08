@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import axios from "axios"
 import { AuthContext } from "../context/AuthContext";
+import { toastWarnNotify } from "../helpers/toastify";
 // import MovieCard from "../components/MovieCard";
 
 const API_KEY = "a9a90e58da935e5528540782b69aa0cf"
@@ -39,9 +40,9 @@ const handleSubmit = (e) => {
   if(searchTerm && currentUser){
     getMovies(SEARCH_API + searchTerm)
   }else if (!currentUser) {
-    alert("Please log in to search a movie");
+    toastWarnNotify('Please log in to search a movie');
   } else {
-    alert("Please enter a text");
+    toastWarnNotify('Please enter a text');
   }
 }
 
