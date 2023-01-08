@@ -13,6 +13,7 @@ import { red } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { Button } from '@mui/material';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
@@ -56,13 +57,13 @@ export default function MovieCard({poster_path, title, overview, vote_average, i
   return (
     
     <Card 
-    key={id} 
-    sx={{ 
-    width: 345,
-    display:"inline-block",
-    // marginTop:"8rem", 
-    // marginBottom:"2rem",
-    margin:"3rem 0 2rem 2rem"
+      key={id} 
+      sx={{ 
+      width: 345,
+      display:"inline-block",
+      // marginTop:"8rem", 
+      // marginBottom:"2rem",
+      margin:"3rem 0 2rem 2rem"
     }}
     >
       <CardHeader
@@ -75,13 +76,13 @@ export default function MovieCard({poster_path, title, overview, vote_average, i
         subheader={release_date}
         sx={{
           // bgcolor:"coral",
-          height:"100px"
+          height:"90px"
         }}
       />
+      <Button>
       <CardMedia
-      sx={{height:"500px"}}
         component="img"
-        height="194"
+        height="500"
         image={poster_path ? (IMG_API + poster_path) : (defaultImage)}
         alt="Paella dish"
         onClick={() => {
@@ -89,6 +90,7 @@ export default function MovieCard({poster_path, title, overview, vote_average, i
           !currentUser && alert('Please log in to see detail');
         }}
       />
+      </Button>
       <CardContent>
         <Typography variant="body2" color="text.secondary" >
           Created by Erhan TEZER

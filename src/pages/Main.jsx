@@ -76,7 +76,7 @@ const handleSubmit = (e) => {
               Search
             </Button>
           </Box>
-          <div className="d-flex justify-content-center flex-wrap">
+          <Box >
               {loading ? (
                 <div className="spinner-border text-primary m-5" role="status">
                   <span className="sr-only">Loading...</span>
@@ -85,7 +85,7 @@ const handleSubmit = (e) => {
               
                 movies?.map((movie) => <MovieCard key={movie.id} {...movie} />)
               )}
-          </div>
+          </Box>
       </>
   );
 };

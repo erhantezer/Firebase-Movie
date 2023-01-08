@@ -102,7 +102,7 @@ function Navbar(props) {
           >
           
             <Button  sx={{ color: '#fff',fontSize:"2rem" }} onClick={() => currentUser && navigate("/")}>
-            MUI
+            {"</E.T>"}
           </Button>
             {/* <Link to={"/"}>
               MUI
