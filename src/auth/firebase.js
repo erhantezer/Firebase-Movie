@@ -70,7 +70,7 @@ export const signIn = async (email, password, navigate) => {
         toastSuccessNotify('Logged in successfully!');
         console.log(userCredential);
     } catch (error) {
-        toastErrorNotify(error.message);
+        console.log(error)
     }
 
 }
@@ -112,9 +112,9 @@ export const forgotPassword = (email) => {
 //! Projeyi deploy ettikten sonra google sign-in çalışması için domain listesine deploy linkini ekle
 //* => Authentication => sign-in-method => Authorized domains => add domain
 export const signUpProvider = (navigate) => {
-    //? Google ile giriş yapılması için kullanılan firebase metodu
+    //! Google ile giriş yapılması için kullanılan firebase metodu
     const provider = new GoogleAuthProvider();
-    //? Açılır pencere ile giriş yapılması için kullanılan firebase metodu
+    //! Açılır pencere ile giriş yapılması için kullanılan firebase metodu
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
