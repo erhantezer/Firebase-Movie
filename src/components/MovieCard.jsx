@@ -57,8 +57,13 @@ export default function MovieCard({poster_path, title, overview, vote_average, i
     
     <Card 
     key={id} 
-    sx={{ maxWidth: 345, marginTop:"8rem", marginBottom:"2rem"}}
-    onClick={() => navigate(`/details/${id}`)}
+    sx={{ 
+    width: 345,
+    display:"inline-block",
+    // marginTop:"8rem", 
+    // marginBottom:"2rem",
+    margin:"3rem 0 2rem 2rem"
+    }}
     >
       <CardHeader
         avatar={
@@ -68,16 +73,25 @@ export default function MovieCard({poster_path, title, overview, vote_average, i
         }
         title={title}
         subheader={release_date}
+        sx={{
+          // bgcolor:"coral",
+          height:"100px"
+        }}
       />
       <CardMedia
+      sx={{height:"500px"}}
         component="img"
         height="194"
         image={poster_path ? (IMG_API + poster_path) : (defaultImage)}
         alt="Paella dish"
+        onClick={() => {
+          navigate(`/details/${id}`);
+          !currentUser && alert('Please log in to see detail');
+        }}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          
+        <Typography variant="body2" color="text.secondary" >
+          Created by Erhan TEZER
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

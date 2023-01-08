@@ -35,9 +35,12 @@ function Navbar(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Button
+      sx={{ my: 2, fontSize:"1.5rem" }}
+      onClick={() => currentUser && (navigate("/"))}
+      >
         MUI
-      </Typography>
+      </Button> 
       <Divider />
       <List>
         
