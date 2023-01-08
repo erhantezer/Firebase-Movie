@@ -23,7 +23,6 @@ useEffect(() => {
 
 const getMovies = async(API) => {
   setLoading(true);
-
   try {
     const {data} =await axios.get(API)
     setMovies(data.results)
@@ -35,6 +34,16 @@ const getMovies = async(API) => {
   }
 }
 
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if(searchTerm && currentUser){
+    getMovies(SEARCH_API + searchTerm)
+  }else if (!currentUser) {
+    alert("Please log in to search a movie");
+  } else {
+    alert("Please enter a text");
+  }
+}
 
   return (
       <>
@@ -47,6 +56,7 @@ const getMovies = async(API) => {
           justifyContent:"center", 
           alignItems:"center" 
         }}
+        onSubmit={handleSubmit}
         >
             <TextField
               sx={{width:400}}

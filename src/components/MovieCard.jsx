@@ -11,6 +11,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
@@ -32,6 +34,8 @@ const defaultImage =
 
 export default function MovieCard({poster_path, title, overview, vote_average, id,release_date}) {
   const [expanded, setExpanded] = React.useState(false);
+  const navigate = useNavigate();
+  const {currentUser} = React.useContext(AuthContext)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -51,7 +55,11 @@ export default function MovieCard({poster_path, title, overview, vote_average, i
 
   return (
     
-    <Card key={id} sx={{ maxWidth: 345, marginTop:"8rem", marginBottom:"2rem"}}>
+    <Card 
+    key={id} 
+    sx={{ maxWidth: 345, marginTop:"8rem", marginBottom:"2rem"}}
+    onClick={() => navigate(`/details/${id}`)}
+    >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
