@@ -7,13 +7,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
+import VideoSection from '../components/VideoSection';
+import { Box, Button } from '@mui/material';
 
-import { Box } from '@mui/material';
 
 
 export default function MovieDetail() {
   const [movieDetails, setMovieDetails] = React.useState("");
   const [videoKey, setVideoKey] = React.useState("");
+  const [video, setVideo] = React.useState(false);
+  
 
 const {id} = useParams();
 
@@ -35,7 +38,7 @@ React.useEffect(() => {
     .then((res) => setVideoKey(res.data.results[0].key))
     .catch((err) => console.log(err));
     
-}, [movieDetailBaseUrl,videoUrl]);
+}, []);
 
 const {
   title,
@@ -50,9 +53,8 @@ console.log(videoKey)
   return (
 
     <Box >
-   
-
-    <Card sx={{ 
+    {!video ? (
+        <Card sx={{ 
     maxWidth: 1000,
     margin:"auto",
     marginTop:"5rem", 
@@ -87,10 +89,36 @@ console.log(videoKey)
       </Typography>
         
         </CardContent>
-        {/* <Box >
-          {videoKey && <VideoSection videoKey={videoKey} />}
-        </Box> */}
+  
     </Card>
+    ): (
+    <Box 
+    sx={{ 
+    maxWidth: 1000,
+    margin:"auto",
+    marginTop:"5rem", 
+    height:500,
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
+    }}
+    >
+          {videoKey && <VideoSection videoKey={videoKey} />} 
+    </Box>
+    )}
+
+
+
+    <Button sx={{
+    margin:"auto",
+    bgcolor:"lightblue", 
+    color:"black", 
+    display:"flex", 
+    justifyContent:"center",
+    alignItems:"center"
+    }} onClick={() => setVideo(!video)}>
+     {!video ? "VIDEO" : "VIEW"}
+    </Button> 
     </Box>
     );
 }
