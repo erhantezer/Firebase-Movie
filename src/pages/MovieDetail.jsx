@@ -38,7 +38,7 @@ React.useEffect(() => {
     .then((res) => setVideoKey(res.data.results[0].key))
     .catch((err) => console.log(err));
     
-}, []);
+}, [movieDetailBaseUrl,videoUrl]);
 
 const {
   title,
