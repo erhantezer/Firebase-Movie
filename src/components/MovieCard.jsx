@@ -99,7 +99,7 @@ export default function MovieCard({poster_path, title, overview, vote_average, i
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites" sx={{color:`${setVoteClass(vote_average)}`}}>
-          {vote_average}
+          {vote_average.toFixed(2)}
         </IconButton>
 
         <ExpandMore
